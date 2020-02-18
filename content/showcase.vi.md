@@ -4,8 +4,8 @@ disableToc: true
 slug: showcase
 ---
 
-#### ⛅ [ECS Fargate](https://serverless-data-lake.aws.job4u.io)
-![ECS Fargate](/images/showcase/serverless-data-lake.png?width=50pc)
+#### ⛅ [ECS Fargate](https://datalake.aws.job4u.io)
+![ECS Fargate](/images/showcase/ecs-fargate.png?width=50pc)
 
 #### 🌤 [EKS Fargate](https://eks-fargate.aws.job4u.io)
 ![EKS Fargate](/images/showcase/eks-fargate.png?width=50pc)
