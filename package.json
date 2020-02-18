@@ -1,14 +1,14 @@
 {
-	"name": "serverless-data-lake",
+	"name": "serverless-data-lake",
 	"version": "1.0.0",
-	"homepage": "https://github.com/nnthanh101/serverless-data-lake#readme",
+	"homepage": "https://github.com/nnthanh101/serverless-data-lake#readme",
 	"bugs": {
-		"url": "https://github.com/nnthanh101/serverless-data-lake/issues"
+		"url": "https://github.com/nnthanh101/serverless-data-lake/issues"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/nnthanh101/serverless-data-lake.git"
+		"url": "git+https://github.com/nnthanh101/serverless-data-lake.git"
 	},
 	"scripts": {
 		"theme": "git submodule init && git submodule update --checkout --recursive",
