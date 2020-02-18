@@ -1,14 +1,14 @@
 ---
-title: Giới Thiệu
+title: Data Lake on AWS
 weight: 5
 pre: "<b>1. </b>"
 chapter: true
 ---
 
-### Chapter 1
+### Chương 1
 
-# Giới Thiệu
+# Giới Thiệu Data Lake
 
-Discover what this workshop and the core-concepts behind it.
+[L100] Discover what this workshop and the core-concepts behind it.
 
 {{% children showhidden="false" %}}

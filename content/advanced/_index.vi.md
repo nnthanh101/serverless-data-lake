@@ -1,5 +1,5 @@
 ---
-title: Advanced
+title: Advanced - Machine Learning
 chapter: true
 pre: "<b>3. </b>"
 weight: 15
@@ -7,4 +7,4 @@ weight: 15
 
 ### Chapter 3
 
-# Advanced
+# Advanced - Machine Learning ...

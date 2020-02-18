@@ -1,12 +1,10 @@
 ---
-title: Intermediate
+title: Các Bước Thực Hiện
 weight: 10
 chapter: true
 pre: "<b>2. </b>"
 ---
 
-### Chapter 2
+### Chương 2
 
-# Intermediate
-
-Intermediate content ...
+# Các Bước Thực Hiện ...

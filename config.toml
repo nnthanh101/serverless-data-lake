@@ -11,7 +11,7 @@ defaultContentLanguageInSubdir= true
 
 [params]
   themeVariant = "workshop"
-  editURL = "https://github.com/nnthanh101/serverless-data-lake/edit/master/content/"
+  editURL = "https://github.com/nnthanh101/serverless-data-lake/edit/master/content/"
   description = "Serverless Data Lake on AWS"
   author = "nnthanh101@gmail.com"
   showVisitedLinks = true
@@ -30,7 +30,7 @@ languageName = "English"
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fab fa-fw fa-github'></i> GitHub"
 identifier = "ds"
-url = "https://github.com/nnthanh101/serverless-data-lake"
+url = "https://github.com/nnthanh101/serverless-data-lake"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
@@ -53,7 +53,7 @@ languageName = "Tiếng Việt"
 [[Languages.vi.menu.shortcuts]]
 name = "<i class='fab fa-fw fa-github'></i> GitHub"
 identifier = "ds"
-url = "https://github.com/nnthanh101/serverless-data-lake"
+url = "https://github.com/nnthanh101/serverless-data-lake"
 weight = 10
 
 [[Languages.vi.menu.shortcuts]]

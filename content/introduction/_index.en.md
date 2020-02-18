@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Data Lake on AWS
 weight: 5
 pre: "<b>1. </b>"
 chapter: true
@@ -7,8 +7,8 @@ chapter: true
 
 ### Chapter 1
 
-# Introduction
+# Data Lake on AWS
 
-Discover what this workshop and the core-concepts behind it.
+[L100] Discover what this workshop and the core-concepts behind it.
 
 {{% children showhidden="false" %}}
