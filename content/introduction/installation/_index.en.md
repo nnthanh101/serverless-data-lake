@@ -1,7 +1,12 @@
 ---
 title: Install and Configure Tools
-weight: 15
-pre: "<b>1.2. </b>"
+weight: 30
+pre: "<b>1.3. </b>"
 ---
 
-## Install and Configure Tools ...
+> Pre-requisites:  
+
+* You need to have access to an AWS account with **AdminstratorAccess**
+* This lab should be executed in **us-west-2** region
+* Best is to **follow links from this  guide** & open them **in new a tab**
+* Run this lab in a modern browser

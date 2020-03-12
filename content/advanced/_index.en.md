@@ -2,7 +2,7 @@
 title: Advanced - Machine Learning
 chapter: true
 pre: "<b>3. </b>"
-weight: 15
+weight: 300
 ---
 
 ### Chapter 3

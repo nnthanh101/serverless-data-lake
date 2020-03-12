@@ -1,6 +1,6 @@
 ---
 title: Data Lake on AWS
-weight: 5
+weight: 100
 pre: "<b>1. </b>"
 chapter: true
 ---
