@@ -1,5 +1,5 @@
 ---
-title: Install and Configure Tools
+title: Installation and Configuration
 weight: 30
 pre: "<b>1.3. </b>"
 ---
