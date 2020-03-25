@@ -1,19 +1,24 @@
-# serverless-data-lake
+# Serverless Data Lake on AWS
 
-Amazon ECS &amp; Fargate Workshop
-
-```
+### 1. Prerequisites
 
 ```
+brew install node
+brew install hugo
+```
+
+### 2. Git clone
 
 ```
-git clone https://github.com/nnthanh101/serverless-data-lake
+git clone https://github.com/nnthanh101/serverless-data-lake.git
 
-cd serverless-data-lake
-
-# git submodule add https://github.com/nnthanh101/hugo-theme-learn themes/hugo-theme-learn
-
+cd serverless-data-lake
 npm run theme
+```
+
+### 3. Run Hugo
+
+```
 npm start
 ```
 
