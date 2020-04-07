@@ -1,5 +1,5 @@
 ---
-title: "Lambda"
+title: "6. Lambda"
 disableToc: true
 hidden: true
 ---
