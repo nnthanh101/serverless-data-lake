@@ -13,6 +13,11 @@ brew install pandoc
 pandoc -f docx -t markdown ai-driven-social-media-dashboard.docx -o social-listening.markdown
 ```
 
+NodeJs: 10.15.3 --> 12.16.1
+
+nohup node twitter_stream_producer_app.js &
+tail -f nohup.out
+
 * [ ] 
 
 {{%expand "Launch the AWS VPC CloudFormation-stack" %}}
