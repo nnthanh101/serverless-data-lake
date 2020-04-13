@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: '(SO0057) - AI-Driven Social Media Dashboard. Template Version 1'
+Description: 'AI-Driven Social Media Dashboard. Template Version 1.1'
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
@@ -28,11 +28,11 @@ Parameters:
   TwitterTermList:
     Description: List of terms for twitter to listen to
     Type: String
-    Default: "'AWS', 'VPC', 'EC2', 'RDS', 'S3'"
+    Default: "'AWS', 'VPC', 'EC2', 'RDS', 'S3', 'COVID-19'"
   TwitterLanguages:
     Description: List of languages to use for the twitter streaming reader
     Type: String
-    Default: "'en', 'es', 'de', 'fr', 'ar', 'pt'"
+    Default: "'en', 'fr', 'vi'"
   AuthConsumerKey:
     Description: Consumer key for access twitter
     Type: String
@@ -54,11 +54,11 @@ Parameters:
   VpcCIDR:
     Description: Please enter the IP range (CIDR notation) for this VPC
     Type: String
-    Default: 10.193.0.0/16
+    Default: 10.10.0.0/18
   PublicSubnet1CIDR:
     Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
     Type: String
-    Default: 10.193.10.0/24
+    Default: 10.10.0.0/24
   LatestAmiId:
     Description: DO NOT EDIT, looks up latest Amazon Linux AMI
     Type:  'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
@@ -238,7 +238,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId : !Ref LatestAmiId
-      InstanceType: t2.medium
+      InstanceType: t3.medium
       KeyName: !Ref InstanceKeyName
       SecurityGroupIds:
       - !Ref TweetsEC2SecurityGroup
@@ -250,7 +250,7 @@ Resources:
           Encrypted: True
           VolumeType: gp2
           DeleteOnTermination: True
-          VolumeSize: 8
+          VolumeSize: 16
       Tags:
       - Key: Name
         Value: !Join ['-', [!Ref 'ApplicationName', 'DeployGroup', !Ref 'AWS::Region']]
@@ -263,10 +263,10 @@ Resources:
             #!/bin/bash -ex
             sleep 60
 
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install 10.15.3
+            nvm install 12.16.1
             npm install --registry=https://registry.npmjs.org/
             npm install --registry=https://custom.npm.registry.com/
             npm install node-sass request@2.81.0
