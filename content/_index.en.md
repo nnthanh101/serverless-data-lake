@@ -6,8 +6,13 @@ weight: 1
 
 ## Serverless Data Lake on AWS
 
-AI-Driven Social Media Dashboard provides **Voice of Customer Analytics through Social Media**: build a Social Media Dashboard using *Artificial Intelligence* and *Business Intelligence* services including end-to-end testing, Serverless (Lambda, API-Gateway), Data Lake (Glue, Athena, Quicksight) and CI/CD.
+You are a Data Analytics Team at **Unicorn-Taxi** Startup. You've been asked to help with the following tasks.
 
-![Data Lake Architecture](/images/architecture/ai-driven-social-media-dashboard-architecture.png?width=50pc)
+![Data Lake Architecture](/images/architecture/serverless-data-lake.png)
 
-AI-Driven Social Media Dashboard monitors and ingests specified tweets using stream processing and leverages a **Serverless Data Lake** and **AI/ML** services (Amazon Translate & Comprehend) to translate & extract insights from those Tweets.
+* [x] Create a Dataset for **Reporting and Visualization**
+  * [x] Cleanse
+  * [x] Transform
+  * [x] Optimize for Reporting Queries
+* [ ] Help solve a **Machine Learning** problem
+  * [ ] Unicorn-Taxi’s Data Scientists need to understand **Passenger tipping behavior**

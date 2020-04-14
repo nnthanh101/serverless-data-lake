@@ -1,5 +1,5 @@
 ---
-title: Visualize
+title: Visualize using QuickSight
 weight: 50
 pre: "<b>5. </b>"
 ---

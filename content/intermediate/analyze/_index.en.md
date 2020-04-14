@@ -1,5 +1,5 @@
 ---
-title: Analyze
+title: Query Data with Athena
 weight: 40
 pre: "<b>4. </b>"
 ---

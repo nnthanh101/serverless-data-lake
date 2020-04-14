@@ -9,11 +9,13 @@ pre: "<b>1.1. </b>"
 ![Data Lake Architecture](/images/architecture/architecture.png?width=50pc)
 
 
-> Build a Data Processing Pipeline and Data Lake
+> [**NYC Taxi Trips** Dataset](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page): for practical purposes, we'll work with a **Simplified Raw** Dataset.
 
-1. **Ingest and Store**: use Amazon Kinesis for real-time streaming data
-2. **Catalog Data**: Use AWS Glue to automatically Catalog Datasets
-3. **Transform Data**: Run interactive ETL scripts in an Amazon SageMaker Jupyter notebook connected to an AWS Glue development endpoint
-4. **Analyze**: Query data using Amazon Athena
-5. **Visualize**: visualize it using Amazon QuickSight
-6. **Lambda**: 
+| Original Raw Dataset | Simplified Raw Dataset |
+|-----------------------------|--|
+| Green and Yellow Taxi + FHV | Only **Yellow** Taxi + few look-ups |
+| Years 2009 to 2019 | Jan to March 2017 |
+| ~1.6Bn rows        | ~2M rows |
+| 215 files          | 3 files |
+| 253 GB total       | 2.5 GB+ uncompressed |
+|             | **Ready in a publicly accessible Amazon S3 bucket** |
