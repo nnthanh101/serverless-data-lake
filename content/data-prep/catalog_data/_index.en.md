@@ -1,9 +1,10 @@
 ---
 title: Catalog Data with Crawler
 weight: 20
-pre: "<b>2. </b>"
+pre: "<b>2.1. </b>"
 ---
 
+# 2.1. Explore Raw Dataset
 
 ![Data Lake Architecture](/images/modules/catalog.png?width=50pc)
 

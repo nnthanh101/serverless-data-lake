@@ -1,12 +1,13 @@
 ---
 title: Transform Data & Glue
-weight: 30
-pre: "<b>3. </b>"
+weight: 20
+pre: "<b>2.2. </b>"
 ---
+
+# 2.2. Create an Optimized Dataset
 
 ![Data Lake Architecture](/images/modules/transform.png?width=50pc)
 
-# Create an Optimized Dataset
 
 > {{%expand "Transform Data using Apache Spark & AWS Glue Development Endpoints" %}}
 After running test SQL queries in Amazon Athena, you verify that you can make the following improvements to the NYC Taxi trips dataset. Ultimately, these improvements together reduce per-query Amazon Athena cost and improve Unicorn-Taxi's Business Users' eXperience.

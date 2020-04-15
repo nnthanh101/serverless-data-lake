@@ -1,8 +1,10 @@
 ---
-title: Query Data with Athena
-weight: 40
-pre: "<b>4. </b>"
+title: Transformed Data & Athena
+weight: 30
+pre: "<b>3. </b>"
 ---
+
+# 3.3. Explore Optimized Dataset
 
 ![Data Lake Architecture](/images/modules/analyze.png?width=50pc)
 
