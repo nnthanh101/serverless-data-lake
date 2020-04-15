@@ -7,45 +7,16 @@ pre: "<b>1. </b>"
 
 ![Data Lake Architecture](/images/modules/ingest.png?width=50pc)
 
-#### Create S3 Bucket
+> {{%expand "1. S3 Bucket" %}}
+{{% /expand%}}
 
-In this step, we will navigate to S3 Console and create the S3 bucket used throughout this demo.
-
-Login to AWS Console: https://console.aws.amazon.com/console/home?region=us-west-2
-
-Navigate to S3 Console & Create a new bucket in us-west-2 region :
-
-* GoTo : https://s3.console.aws.amazon.com/s3/home?region=us-west-2
-* Click - **Create Bucket**
-    * Bucket Name : **yourname-datalake-demo-bucket**
-    * Region : **US WEST (Oregon)**
-    * Click **Create** (bottom left)
-* Adding reference data
-    * Open - **yourname-datalake-demo-bucket**
-        * Click - **Create folder**
-            * New folder called : **data**
-            * Click - **Save**
-    * Open - **data**
-        * Click - **Create folder**
-            * New folder : **reference_data**
-            * Click - **Save**
-    * Open - **reference_data**
-        * download this file locally : [tracks_list.json](../tracks_list.json)
-            * **Note:** Ensure you download the raw JSON data by clicking the *Raw* button near the top of the Github page.
-        * Click - Upload
-            * Click **Add files** & upload the **tracks_list.json** file here
-            * Click **Upload** (bottom left)
-
-
-
-#### Create Kinesis Firehose
-
+> {{%expand "2. Create Kinesis Firehose" %}}
 In this step we will create navigate to Kinesis Console & create a Kinesis Firehose delivery stream to ingest data & store in S3:
 
-* GoTo: https://console.aws.amazon.com/kinesis/home?region=us-west-2#/get-started
+* GoTo: https://console.aws.amazon.com/kinesis/home?region=ap-southeast-1#/get-started
 * Click **Create Delivery Stream**
     * Step 1: Name and source
-        * Delivery stream name : **sg-summit-demo-stream**
+        * Delivery stream name : **social-listening-stream**
         * Source : **Direct PUT or other sources**
         * Click **Next**
     * Step 2: Transform records
@@ -54,7 +25,7 @@ In this step we will create navigate to Kinesis Console & create a Kinesis Fireh
         * Click **Next**
     * Step 3: Choose destination
         * Destination : **Amazon S3**
-        * S3 bucket : **yourname-datalake-demo-bucket**
+        * S3 bucket : **your-datalake-bucket**
         * Prefix : **data/raw/**  (slash **/** after **raw** is important, if you miss it Firehose will copy the data in an undesired location)
         * Error prefix : Leave Blank
         * Click **Next**
@@ -72,15 +43,13 @@ In this step we will create navigate to Kinesis Console & create a Kinesis Fireh
     * Step 5: Review
         * Review the configuration & make sure its as mentioned above
         * Click - **Create delivery stream**
+{{% /expand%}}
 
-
-
-#### Generate Dummy Data
-
+> {{%expand "3. Generate Dummy Data" %}}
 In this step we will configure Kinesis Data Generator to produce fake data and ingest it into Kinesis Firehose
 
 * **Configure Amazon Cognito** for Kinesis Data Generator - In this step we will launch a cloud formation stack that will configure Cognito. This cloudformation scripts launches in **Oregon region** (No need to change this region)
-    * Goto : https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=Kinesis-Data-Generator-Cognito-User&templateURL=https://kinesis-data-generator-cf-template.s3-us-west-2.amazonaws.com/cognito-setup.json
+    * Goto : https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=Kinesis-Data-Generator-Cognito-User&templateURL=https://kinesis-data-generator-cf-template.s3-ap-southeast-1.amazonaws.com/cognito-setup.json
     * Click - **Next**
     * Specify Details:
         * Username - **admin**
@@ -98,8 +67,8 @@ In this step we will configure Kinesis Data Generator to produce fake data and i
         * GoTo outputs tab : click on the link that says: **KinesisDataGeneratorUrl** - This will open your Kinesis Data Generator tool
 * On Amazon Kinesis Data Generator homepage
     * **Login** with your username & password from previous step
-    * **Region: us-west-2**
-    * **Stream/delivery stream : sg-summit-demo-stream**
+    * **Region: ap-southeast-1**
+    * **Stream/delivery stream : social-listening-stream**
     * Records per second : 2000
     * **Record template  : **In the **big text area**, add the following json template
     * Click - **Send Data - do not click without pasting the below bit of template in the big text area**
@@ -123,12 +92,13 @@ Once the tools send ~ 100,000 messages, you can click on - **Stop sending data t
         }
     )}}
 }
-
 ```
+{{% /expand%}}
 
-#### Validate that data has arrived in S3
+> {{%expand "4. Validate that data has arrived in S3" %}}
 
-After few moments GoTo S3 console:https://s3.console.aws.amazon.com/s3/home?region=us-west-2
+After few moments GoTo S3 console:https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1
 
-* Click - **yourname-datalake-demo-bucket > Data**
+* Click - **your-datalake-bucket > Data**
 * There should be a folder called **raw** created > Open it and keep navigating, you will notice that firehose has dumped the data in S3 using **yyyy/mm/dd/hh** partitioning.
+{{% /expand%}}

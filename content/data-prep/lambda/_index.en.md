@@ -12,15 +12,15 @@ Let's create a Lambda Function which will host the code for Athena to query and 
 
 In this section, we will create a folder under bucket created in the previous lab to store the query results produced by Athena.
 
-Login to AWS Console: https://console.aws.amazon.com/console/home?region=us-west-2
+Login to AWS Console: https://console.aws.amazon.com/console/home?region=ap-southeast-1
 
-Navigate to S3 Console in us-west-2 region :
+Navigate to S3 Console in ap-southeast-1 region :
 
-- GoTo : https://s3.console.aws.amazon.com/s3/home?region=us-west-2
+- GoTo : https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1
 
 - Add new folder for query results data
 
-  - Open - **yourname-datalake-demo-bucket** 
+  - Open - **your-datalake-bucket** 
 
     - Click - **Create folder**
       - New folder called : **query_results**
@@ -34,7 +34,7 @@ In this section, we will create the required Lambda Function.
 
 Navigate to Lambda console and create a new lambda function:
 
-- GoTo: https://console.aws.amazon.com/lambda/home?region=us-west-2
+- GoTo: https://console.aws.amazon.com/lambda/home?region=ap-southeast-1
 
   **Note:** Make sure Region is selected as **US West (Oregon)** which is us-east-1
 
@@ -70,7 +70,7 @@ In this section, we will provide code to the lambda function which we just creat
 
 - Scroll down to Function Code section and replace existing code under lambda_function with the below:
 
-  **<u>Note</u>**: Replace **yourname** in `S3_OUTPUT = 's3://yourname-datalake-demo-bucket/query_results/'` with the name you used in previous lab.
+  **<u>Note</u>**: Replace **yourname** in `S3_OUTPUT = 's3://your-datalake-bucket/query_results/'` with the name you used in previous lab.
 
   ```python
   import boto3
@@ -85,7 +85,7 @@ In this section, we will provide code to the lambda function which we just creat
   TOPX = 5
   
   # S3 Constant
-  S3_OUTPUT = 's3://yourname-datalake-demo-bucket/query_results/'
+  S3_OUTPUT = 's3://your-datalake-bucket/query_results/'
   
   
   # Number of Retries
@@ -269,7 +269,7 @@ Let's verify the results through Athena
 
 Login to the Amazon Athena Console.
 
-- GoTo: https://console.aws.amazon.com/athena/home?region=us-west-2#query
+- GoTo: https://console.aws.amazon.com/athena/home?region=ap-southeast-1#query
 
 - As Athena uses the AWS Glue catalog for keeping track of data source, any S3 backed table in Glue will be visible to Athena.
 

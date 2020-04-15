@@ -10,7 +10,7 @@ pre: "<b>3. </b>"
 #### Create Glue Development Endpoint
 In this step you will be creating a glue endpoint to interactively develop Glue ETL scripts using PySpark
 
-* GoTo : https://console.aws.amazon.com/glue/home?region=us-west-2#etl:tab=devEndpoints
+* GoTo : https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=devEndpoints
 * Click - **Add endpoint**
   * Development endpoint name - **devendpoint1**
     * IAM role - **AWSGlueServiceRoleDefault**
@@ -31,7 +31,7 @@ You have to wait for this step to complete before moving to next step.
 
 #### Create SageMaker Notebooks (Jupyter) for Glue Dev Endpoints
 
-* GoTo: https://console.aws.amazon.com/glue/home?region=us-west-2#etl:tab=notebooks
+* GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks
 * Select tab : **Sagemaker notebooks**
 * Click: **Create notebook**
   * Notebook name: **notebook1**
@@ -46,7 +46,7 @@ This will take few minutes, wait for this to finish
 
 #### Launch Jupyter Notebook
 - Download and save this file locally on your laptop : [summit-techfest-datalake-notebook.ipynb](../summit-techfest-datalake-notebook.ipynb)
-- GoTo: https://console.aws.amazon.com/glue/home?region=us-west-2#etl:tab=notebooks
+- GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks
 - Click - **aws-glue-notebook1**
 - Click - **Open**, This will open a new tab
 - On Sagemaker Jupyter Notebook 
@@ -63,7 +63,7 @@ This will take few minutes, wait for this to finish
 #### Validate - Transformed / Processed data has arrived in S3
 
 Once the ETL script has ran successfully.
-console:https://s3.console.aws.amazon.com/s3/home?region=us-west-2
+console:https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1
 
-* Click - **yourname-datalake-demo-bucket > data**
+* Click - **your-datalake-bucket > data**
 * There should be a folder called **processed-data** created here > Open it & ensure that .parquet files are created in this folder.

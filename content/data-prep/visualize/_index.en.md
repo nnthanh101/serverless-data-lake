@@ -11,17 +11,17 @@ In this step we will visualize it using QuickSight
 
 Login to Amazon Quick Sight Console & complete the registration & sign-up
 
-* GoTo: https://us-west-2.quicksight.aws.amazon.com/sn/start
+* GoTo: https://ap-southeast-1.quicksight.aws.amazon.com/sn/start
 * You should see quicksight hompage: 
 ![
 ](../img/quicksight_home_page.jpg)
 
 #### Setting QuickSight Permissions
 
-* GoTo: https://us-west-2.quicksight.aws.amazon.com/sn/console/resources?#
+* GoTo: https://ap-southeast-1.quicksight.aws.amazon.com/sn/console/resources?#
 * Select: **Amazon Athena**  - this enables QuickSight access to Amazon Athena databases
 * Select: **Amazon S3**
-	* Select: **yourname-datalake-demo-bucket**
+	* Select: **your-datalake-bucket**
 	* Click: **Select buckets**
 * Click: **Update**
 
@@ -34,7 +34,7 @@ Login to Amazon Quick Sight Console & complete the registration & sign-up
 
 #### Adding a New Dataset
 
-* GoTo: https://us-west-2.quicksight.aws.amazon.com/sn/start
+* GoTo: https://ap-southeast-1.quicksight.aws.amazon.com/sn/start
 * On top right, Click - **Manage Data**
     * Click - **New Data Set**
     * Click - **Athena** 
