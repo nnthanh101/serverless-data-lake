@@ -106,12 +106,12 @@ and analytics queries that Unicorn-Taxi's business end users may want to run on 
 3. Click on the tab **Saved Queries**
 4. In the search field, type `nyctaxi:raw`
 5. Click on the `AthenaSampleRptNamedQuery-` query to open in Athena Query Editor.
-Note: After opening the query, [review the comment before the SQL statement]().
-6. Click **Run query**
+Note: After opening the query, [review the comment before the SQL statement](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/athena/AthenaSampleRptNamedQuery.sql).
+1. Click **Run query**
 
-7. Note: Query **Run time** and **Data scanned**. Copy and paste it into an open text file for later comparison.
+2. Note: Query **Run time** and **Data scanned**. Copy and paste it into an open text file for later comparison.
 `(Run time: 48.74 seconds, Data scanned: 164.98 MB)`
 
-8. Repeat **steps 3- 7** for query **AthenaSampleAggQuery-**
+1. Repeat **steps 3- 7** for query **[AthenaSampleAggQuery-](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/athena/AthenaSampleAggQuery.sql)**
 
 ✍️ The *Query Run time* and *Data scanned* values you obtained are a result of running the queries directly on the **Raw Dataset**. Later on, we'll create an **Optimized Dataset** and query it again. And then, we'll be able to compare Query Run times and Data scanned on Raw Dataset versus Optimized Dataset.

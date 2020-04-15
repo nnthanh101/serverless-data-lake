@@ -4,7 +4,7 @@ chapter: true
 weight: 1
 ---
 
-## Serverless Data Lake on AWS
+# SERVERLESS DATA LAKE ON AWS
 
 You are a Data Analytics Team at **Unicorn-Taxi** Startup. You've been asked to help with the following tasks.
 

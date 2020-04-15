@@ -23,3 +23,9 @@ npm start
 ```
 
 > http://localhost:8080
+
+### Submodule
+
+```
+git submodule add https://github.com/nnthanh101/hugo-theme-learn themes/hugo-theme-learn
+```
