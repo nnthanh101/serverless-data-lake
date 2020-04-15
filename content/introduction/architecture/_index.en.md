@@ -1,5 +1,5 @@
 ---
-title: Data Lake Architecture
+title: Architecture & Dataset
 weight: 10
 disableToc: true
 pre: "<b>1.1. </b>"

@@ -1,6 +1,6 @@
 ---
 title: Cài Đặt & Cấu Hình
-weight: 15
+weight: 20
 pre: "<b>1.2. </b>"
 ---
 

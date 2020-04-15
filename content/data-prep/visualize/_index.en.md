@@ -1,7 +1,7 @@
 ---
 title: Visualize using QuickSight
-weight: 50
-pre: "<b>5. </b>"
+weight: 240
+pre: "<b>2.4. </b>"
 ---
 
 ![Data Lake Architecture](/images/modules/visualize.png?width=50pc)

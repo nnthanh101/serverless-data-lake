@@ -1,6 +1,6 @@
 ---
 title: Các Bước Thực Hiện
-weight: 10
+weight: 200
 chapter: true
 pre: "<b>2. </b>"
 ---

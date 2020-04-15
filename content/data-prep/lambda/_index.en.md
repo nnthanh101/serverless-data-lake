@@ -1,7 +1,7 @@
 ---
 title: Lambda
-weight: 60
-pre: "<b>6. </b>"
+weight: 250
+pre: "<b>2.5. </b>"
 ---
 
 ![Data Lake Architecture](/images/modules/lambda.png?width=50pc)

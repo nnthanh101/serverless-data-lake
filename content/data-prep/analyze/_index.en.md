@@ -1,7 +1,7 @@
 ---
 title: Transformed Data & Athena
-weight: 30
-pre: "<b>3. </b>"
+weight: 230
+pre: "<b>2.3. </b>"
 ---
 
 # 3.3. Explore Optimized Dataset

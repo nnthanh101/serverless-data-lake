@@ -1,7 +1,7 @@
 ---
 title: Cleanup
-weight: 70
-pre: "<b>7. </b>"
+weight: 320
+pre: "<b>3.2. </b>"
 ---
 
 Failing to do this will result in incuring AWS usage charges.

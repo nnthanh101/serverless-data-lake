@@ -1,6 +1,6 @@
 ---
 title: Transform Data & Glue
-weight: 20
+weight: 220
 pre: "<b>2.2. </b>"
 ---
 

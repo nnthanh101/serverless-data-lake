@@ -8,6 +8,12 @@ weight: 1
 
 You are a Data Analytics Team at **Unicorn-Taxi** Startup. You've been asked to help with the following tasks.
 
+## Get Ready!
+
+![Get Ready!](/images/introduction/get-ready.png)
+
+## Practice & Learn
+
 ![Data Lake Architecture](/images/architecture/serverless-data-lake.png)
 
 * [x] Create a Dataset for **Reporting and Visualization**
