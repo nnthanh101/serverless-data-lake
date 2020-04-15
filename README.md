@@ -28,4 +28,6 @@ npm start
 
 ```
 git submodule add https://github.com/nnthanh101/hugo-theme-learn themes/hugo-theme-learn
+
+# rm -rf .git/modules/themes/hugo-theme-learn .git/modules/hugo-theme-learn
 ```
