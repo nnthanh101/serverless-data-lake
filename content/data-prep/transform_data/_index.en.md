@@ -6,64 +6,69 @@ pre: "<b>3. </b>"
 
 ![Data Lake Architecture](/images/modules/transform.png?width=50pc)
 
+# Create an Optimized Dataset
 
-#### Create Glue Development Endpoint
-In this step you will be creating a glue endpoint to interactively develop Glue ETL scripts using PySpark
+> {{%expand "Transform Data using Apache Spark & AWS Glue Development Endpoints" %}}
+After running test SQL queries in Amazon Athena, you verify that you can make the following improvements to the NYC Taxi trips dataset. Ultimately, these improvements together reduce per-query Amazon Athena cost and improve Unicorn-Taxi's Business Users' eXperience.
 
-* GoTo : https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=devEndpoints
-* Click - **Add endpoint**
-  * Development endpoint name - **devendpoint1**
-    * IAM role - **AWSGlueServiceRoleDefault**
-    * Expand - **Security configuration.. parameters**
-      * Data processing units (DPUs): **2** (this affects the cost of the running this lab)
-  * Click - **Next**
-  * Networking screen :
-    * Choose - **Skip networking information**
-  * Add an SSH public key (Optional)
-    * Leave as defaults
-    * Click: **Next**
-  * Review the settings
-    * Click: **Finish**
+- **Convert the Dataset from CSV** to a compressed and splittable columnar file format, such as **Parquet**. This enables Amazon Athena to optimize query execution by avoiding scanning columns that are not needed by your query and rows that are filtered out by your query.
+- **Partition the Dataset** in Amazon S3 by year and month into Hive-style partitions. The Partitioning Scheme enables queries that filter on a specific Year or Month to avoid scanning unnecessary data for other Years and Months, thereby acting as a crude index.
+- **De-normalize the Dataset** by joining the primary fact table **_yellow_** with the dimension tables **_taxizone_** , **_ratecode_** , and **_paymenttype_**. This creates a new table that is simpler to query and run reports on.
+- **Create new columns and drop unnecessary columns**.
 
-It will take close to 10 mins for the new Glue console to spin up.
+To develop and test code to apply such transformations on the large NYC Taxi trips dataset, you consider using an **Apache Spark** environment that can access and manipulate your data directly in Amazon S3. You decide to take advantage of **AWS Glue Development Endpoints** for that purpose. Also, instead of setting up and managing your own Zeppelin or Jupyter Notebook Server, you leverage AWS Glue's ability to launch a fully-managed Jupyter Notebook Instance for interactive ETL and Machine Learning development. Your Jupyter Notebook will use your AWS Glue Development Endpoint to run your ETL code written in **PySpark** or **Scala**.
 
-You have to wait for this step to complete before moving to next step.
+Let's go through the steps to setup your interactive ETL Notebook Environment and apply the Data Transformations.
+{{% /expand%}}
 
-#### Create SageMaker Notebooks (Jupyter) for Glue Dev Endpoints
+> {{%expand "Ensure your AWS Glue Dev endpoint is READY" %}}
+The AWS Glue Dev Endpoint was automatically created for you by the AWS CloudFormation template your ran in section "1.2.1. Get your AWS account ready".
 
-* GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks
-* Select tab : **Sagemaker notebooks**
-* Click: **Create notebook**
-  * Notebook name: **notebook1**
-  * Attach to development endpoint: **devendpoint1**
-  * Choose: **Create an IAM role**
-  * IAM Role: **notebook1**
-  * VPC (optional): Leave blank
-  * Encryption key (optional): Leave blank
-  * Click: **Create Notebook**
-
-This will take few minutes, wait for this to finish
-
-#### Launch Jupyter Notebook
-- Download and save this file locally on your laptop : [summit-techfest-datalake-notebook.ipynb](../summit-techfest-datalake-notebook.ipynb)
-- GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks
-- Click - **aws-glue-notebook1**
-- Click - **Open**, This will open a new tab
-- On Sagemaker Jupyter Notebook 
-  - Click - Upload (right top part of screen)
-  - Browse and upload **summit-techfest-datalake-notebook.ipynb** which you downloaded earlier
-  - Click - **Upload** to confirm the download
-  - Click on **summit-techfest-datalake-notebook.ipynb ** to open the notebook
-  - Make sure it says **'Sparkmagic (PySpark)'** on top right part of the notebook, this is the name of the kernel Jupyter will use to execute code blocks in this notebook
+1. Navigate to the [AWS Glue console](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1)
+2. In the left menu, under **ETL**, click **Dev endpoints**
+3. Verify there is a dev endpoint named **nyctaxi-dev-endpoint-**
+4. Verify that the status is **READY**
+{{% /expand%}}
 
 
-**Follow the instructions on the notebook**
-	  - Read and understand the instructions, they explain important Glue concepts
+### 2.3.1. Create an Amazon SageMaker Notebook instance
 
-#### Validate - Transformed / Processed data has arrived in S3
+Proceed to create a SageMaker Notebook instance. Follow these steps.
 
-Once the ETL script has ran successfully.
-console:https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1
+1. In the left menu, under [**ETL** → **Dev endpoints** , click **Notebooks**](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks)
+2. Click **Create notebook**
+3. For **Notebook name**, enter `nyctaxi-notebook`
+4. For **Attach to development endpoint**, select `nyctaxi-dev-endpoint-`
+5. Select **Choose an existing IAM role** then choose
+    `AWSGlueServiceSageMakerNotebookRole-nyctaxi_`
+6. Click **Create notebook**. This will take you back to the **Notebooks** page.
+7. Click the **Refresh** button, if needed. You should notice a notebook with the name **`aws-glue-nyctaxi-notebook`** and the status **Starting**.
 
-* Click - **your-datalake-bucket > data**
-* There should be a folder called **processed-data** created here > Open it & ensure that .parquet files are created in this folder.
+> ✍️ The Amazon SageMaker notebook should take **about 6 minutes** to transfer into a **Ready** status.
+
+
+### 2.3.2. Interactively author and run ETL code in Jupyter
+
+> 🎯 First, We'll download the ETL Notebook we prepared for you; then upload the Notebook to your own Amazon SageMaker Notebook, from the AWS Glue console.
+
+1. Download Notebook file **[nyctaxi_raw_dataset_etl.ipynb](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/nyctaxi_raw_dataset_etl.ipynb)**
+2. Navigate to the [**AWS Glue** console](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks).  In the left menu, under **ETL** → **Dev endpoints**, click **Notebooks**
+4. Select **aws-glue-nyctaxi-notebook**, then click **Open notebook** and then **OK**. A new browser tab will open showing **Jupyter** interface
+5. In **Jupyter**, in the upper right corner, click the **Upload** button
+6. Browse to and select **nyctaxi_raw_dataset_etl.ipynb** , then in Jupyter, click **Upload** again. After upload, the Notebook should appear in Jupyter.
+7. Click on **nyctaxi_raw_dataset_etl.ipynb** to open Notebook. Spend a few moments to have an overview of the documented ETL Code and what it does.
+
+> 🎯Next, We'll edit the **ETL code** in the Notebook and then run it on the Raw NYC Taxi Trips Dataset.
+
+1. In **Jupyter**, ensure the `nyctaxi_raw_dataset_etl.ipynb` notebook is open
+2. In the **first PySpark code cell**, look for the variable ~~**your-datalake-bucket**~~. Set the value of that string variable to **your own Amazon S3 bucket’s name** `serverless-data-lake-XXX`
+3. Click the **Save and Checkpoint** button to save the change you made to your notebook.
+4. Click on the **Cells** menu → **Run All**
+5. This will run *ETL code* in the Notebook. The code finally creates a new dataset under the Amazon S3 prefix in your own account:
+    ```
+    s3://serverless-data-lake-XXX/data/staging/nyctaxi/yellow_opt/
+    ```
+    Note: replace `serverless-data-lake-XXX` with your actual bucket's name.
+
+> ✍️The Notebook should take about 8 minutes to complete.
+
