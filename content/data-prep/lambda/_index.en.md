@@ -92,7 +92,7 @@ You can run this AWS Glue Job any time. With 4 DPUs allocated, it takes **about 
 
 s3://serverless-data-lake-XXX/data/**prod**/nyctaxi/**yellow_rpt**
 
-You can download the [Job's script here]()
+You can download the [Job's script here](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/scripts/nyctaxi_create_optimized_dataset_job.py)
 
 > {{%expand "✍️ TRY IT OUT LATER" %}}
 You can have AWS Glue auto-generate an ETL script for you! You can then edit and customize the script to your needs.
@@ -134,3 +134,78 @@ Finally, we'll create a **Time-based** AWS Glue Trigger to trigger our job throu
 **Congratulations! You have successfully set up your AWS Glue ETL pipeline.**
 The pipeline will run on schedule. You can check your AWS Glue console at the times you scheduled to ensure that your Crawlers and your AWS Glue Job have run.
 {{% /notice %}}
+
+
+### 2.4.4. Advanced Exercise: AWS Glue Job Bookmarks
+
+🎯 Let's try out the AWS Glue's Job Bookmarks feature which enables production ETL jobs to process only new data when rerunning on a scheduled interval.
+
+> 2.4.4..1. We'll start by simulating an initial run of the production ETL pipeline to process data files pertaining to **January & February 2017**.
+
+1. Let the ETL Pipeline run once on the scheduled time.
+
+    {{%expand "Alternatively, We can manually start the AWS Glue job" %}}
+    Alternatively, you can manually start the AWS Glue job you've just created and wait for it to complete. 
+    
+    - Navigate to **Jobs** console. 
+    - Check `nyctaxi-create-optimized-dataset`.
+    - Click **Action** → **Run job**. 
+    - Expand **Advanced properties**, and for **Job bookmark**, ensure `Enable` is selected. 
+    - Click **Run**.
+
+    When the Job completes, it will have created a new Production Dataset covering _January and February 2017_.
+    {{% /expand%}}
+
+
+2. Let's Crawl the new Production Dataset. 
+   - Navigate to [**Crawlers console**](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=crawlers)
+   - Re-run the Optimized Dataset Crawler: `nyctaxi-optimized-crawler`. 
+   Crawler will detect the new Dataset and add it to a table named `yellow_rpt`.
+3. Navigate to the [**Amazon Athena console**](https://ap-southeast-1.console.aws.amazon.com/athena/home?force&force=&region=ap-southeast-1#query). 
+   - Ensure database `nyctaxi` is selected. 
+   - **Refresh** tables list. 
+   - **Copy, paste, and run** the following query against the newly-created production reporting dataset table, `yellow_rpt`.
+
+```
+SELECT count(*) AS march_count FROM yellow_rpt WHERE cast(pu_month AS BigInt) = 3 GROUP BY yellow_rpt.pu_month
+```
+
+Notice that there is a **Zero records returned.** for March.
+
+> 2.4.4.2. Now, let's simulate as if a new file for **March 2017** was added to our raw dataset.
+
+4. Navigate to the [**AWS Lambda** console. On the left menu, click **Functions**](https://ap-southeast-1.console.aws.amazon.com/lambda/home?region=ap-southeast-1#/functions)
+5. In the **Functions** list, select function starting with **`copy_raw_nyctaxi_data`**
+6. Click on **Test**
+7. On the **Configure test event** dialog...
+
+    a. Select `Create new test event`
+
+    b. For **Event name**, enter `IngestMarch2017`
+
+    c. For Event body , copy and replace existing body with the JSON text below:
+
+    ```
+    {
+    "s3_prefix": "data/raw/nyctaxi/yellow/yellow_tripdata_2017-03.csv.bz2"
+    }
+    ```
+    
+    d. Click Create
+
+8. Next, on the top right, click the **Test** button. Wait until you receive **Execution result:** **succeeded**. The March 2017 file has been ingested into your Amazon S3 bucket!
+
+> 2.4.4.3. Finally, we'll manually re-run the Production ETL Job and verify that it processed the newly-ingested file for **March 2017**.
+
+9. Navigate to the **AWS Glue** console. Click on **Jobs**
+10. Manually run the **nyctaxi-create-optimized-dataset** job again. Wait for it to complete.
+11. Navigate to **Crawlers**, and re-run the optimized dataset crawler **nyctaxi-optimized-**
+    **crawler**.
+12. Repeat **step #3**. Does it show a count for March 2017 records?
+
+Optionally, you can also navigate to Amazon S3 console and browse the following locations and verify that the Glue Job did not re-process January and February data and append duplicate files. Check the number of files in the following S3 locations and ensure there are 31 objects for January and 28 objects for February:
+
+
+* [x] s3://~~serverless-data-lake-XXX~~ /data/**prod**/nyctaxi/**yellow_rpt**/pu_year=2017/pu_month=1/
+
+* [x] s3://~~serverless-data-lake-XXX~~ /data/**prod**/nyctaxi/**yellow_rpt**/pu_year=2017/pu_month=2/
