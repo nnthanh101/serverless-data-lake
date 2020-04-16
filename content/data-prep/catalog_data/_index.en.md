@@ -38,7 +38,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
     Note: replace `serverless-data-lake-XXX` with your actual bucket's name.
 
-	d. Click Next then Next once again.
+	d. Click **Next** then **Next** once again.
 
 1. On **IAM Role** step...
    
@@ -71,7 +71,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
 1. Navigate to the [AWS Glue console](https://console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog). 
 2. In the left menu, under **Data Catalog** , click **Tables** --> show a list of NYC Taxi dataset tables cataloged by your crawler: `yellow`, `paymenttype`, `ratecode`, and **taxizone**.
-3. Click on the **yellow** table to show the Table properties and Schema
+3. Click on the **yellow** table to show the **Table properties** and **Schema**
 
     a. **Classification**, showing the table was classified as `csv`
 

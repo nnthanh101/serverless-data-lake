@@ -6,7 +6,7 @@ weight: 1
 
 # SERVERLESS DATA LAKE ON AWS
 
-You are a Data Analytics Team at **Unicorn-Taxi** Startup. You've been asked to help with the following tasks.
+You are a Data Analytics Team at **Unicorn-Taxi** Startup.
 
 ## Get Ready!
 
@@ -15,6 +15,8 @@ You are a Data Analytics Team at **Unicorn-Taxi** Startup. You've been asked to 
 ## Practice & Learn
 
 ![Data Lake Architecture](/images/architecture/serverless-data-lake.png)
+
+You've been asked to help with the following tasks:
 
 * [x] Create a Dataset for **Reporting and Visualization**
   * [x] Cleanse
