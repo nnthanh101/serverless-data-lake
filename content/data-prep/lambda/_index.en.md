@@ -1,289 +1,136 @@
 ---
-title: Lambda
-weight: 260
-pre: "<b>2.6. </b>"
+title: Lambda & Step Functions
+weight: 240
+pre: "<b>2.4. </b>"
 ---
+
+# 2.4. Setup an AWS Glue ETL pipeline
 
 ![Data Lake Architecture](/images/modules/lambda.png?width=50pc)
 
-Let's create a Lambda Function which will host the code for Athena to query and fetch Top 5 Popular Songs by Hits from processed data.
+> {{%expand "🎯🎯🎯 Deploy into Production ELT Pipeline" %}}
+In the previous sections, you explored Raw NYC Taxi Trips Dataset. You then developed and tested ETL code to transform the Raw NYC Taxi Trips Dataset into a new Dataset that is optimized for querying and reporting by Unicorn-Taxi's Business End-Users. Now, it's time to deploy your Code into a Production ETL Pipeline using Glue.
+{{% /expand%}}
 
-### Create S3 Folder for storing Query Results
+### 2.4.1. Schedule AWS Glue Crawlers
 
-In this section, we will create a folder under bucket created in the previous lab to store the query results produced by Athena.
+> {{%expand "🎯We'll start by scheduling the Raw Dataset AWS Glue Crawler" %}}
+In this section, we'll build a **Schedule-Driven** AWS Glue ETL pipeline that looks as follows. We work our way backwards from a daily data availability Service Level Agreement (SLA) goal.
+Unicorn-Taxi's Business End-Users need their Datasets to be refreshed daily and available by that time.
+{{% /expand%}}
 
-Login to AWS Console: https://console.aws.amazon.com/console/home?region=ap-southeast-1
+1. Navigate to the [AWS Glue console. In the left menu, click **Crawlers**](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=crawlers)
+2. Click on `nyctaxi-raw-crawler` , then click **Action** >> **Edit crawler**
+3. In the left list of steps, click on **Schedule**
+4. For **Frequency**, select `Daily`
+5. Select `07:00 UTC` (2:00PM GMT+7)
+6. In the left list, click on **Review all steps**
+7. Scroll down and click **Finish**
 
-Navigate to S3 Console in ap-southeast-1 region :
+> 🎯Next, we'll schedule the **Optimized** Dataset AWS Glue Crawler.
 
-- GoTo : https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1
+1. Navigate to the [AWS Glue console. In the left menu, click **Crawlers**](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=crawlers)
+2. Click on `nyctaxi-optimized-crawler`, then click **Action** >> **Edit crawler**
+3. In the left list of steps, click on **Schedule**
+4. For **Frequency** , select `Daily`
+5. Select `08:00 UTC` (3:00PM GMT+7)
+6. In the left list, click on **Review all steps**
+7. Scroll down and click **Finish**
 
-- Add new folder for query results data
 
-  - Open - **your-datalake-bucket** 
+### 2.4.2. Create an AWS Glue Job
 
-    - Click - **Create folder**
-      - New folder called : **query_results**
-      - Click - **Save**
+The next step in setting up our AWS Glue ETL pipeline is to create an AWS Glue Job.
 
+1. Navigate to the [AWS Glue console. In the left menu, under **ETL** , click **Jobs**](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=jobs) >> Click **Add job**
+
+2. In step **Job properties** ...
+
+    a. For **Name**, enter `nyctaxi-create-optimized-dataset`
     
-
-### Create Lambda Function
-
-In this section, we will create the required Lambda Function.
-
-Navigate to Lambda console and create a new lambda function:
-
-- GoTo: https://console.aws.amazon.com/lambda/home?region=ap-southeast-1
-
-  **Note:** Make sure Region is selected as **US West (Oregon)** which is us-east-1
-
-- Click: **Create function** (if you are using Lambda for the first time, then you might have to click Get Started to ptoceed)
-
-- Select **Author from scratch**
-
-  ![image-20191106100540669](../img/create-lambda-function-1.png)
-
-- Under **Basic Information**, 
-
-  - Give Function name as **top5Songs**
-  - Select Runtime as **Python 3.7**
-  - Expand **Choose or create an execution role** under Permissions, make sure **Create a new role with basic Lambda permissions** is selected.
-
-![image-20191106101333731](../img/create-lambda-function-2.png)
-
-- Click **Create Function**
-
-
-
-### Author Lambda Function
-
-In this section, we will provide code to the lambda function which we just created. We will use `boto3` to access Athena client. 
-
-> Boto is the Amazon Web Services (AWS) SDK for Python. It enables Python developers to create, configure, and manage AWS services, such as EC2 and S3. Boto provides an easy to use, object-oriented API, as well as low-level access to AWS services. Read more about Boto here - https://boto3.amazonaws.com/v1/documentation/api/latest/index.html?id=docs_gateway
->
-> Read more about Boto3 Athena API methods here - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/athena.html
-
-
-
-#### Function Code
-
-- Scroll down to Function Code section and replace existing code under lambda_function with the below:
-
-  **<u>Note</u>**: Replace **yourname** in `S3_OUTPUT = 's3://your-datalake-bucket/query_results/'` with the name you used in previous lab.
-
-  ```python
-  import boto3
-  import time
-  import os
-  
-  # Environment Variables
-  DATABASE = os.environ['DATABASE']
-  TABLE = os.environ['TABLE']
-  
-  # Top X Constant
-  TOPX = 5
-  
-  # S3 Constant
-  S3_OUTPUT = 's3://your-datalake-bucket/query_results/'
-  
-  
-  # Number of Retries
-  RETRY_COUNT = 10
-  
-  def lambda_handler(event, context):
-      # TODO implement
-      
-      client = boto3.client('athena')
-      
-      # query constant with two environment variables and a constant
-      query = "select track_name as \"Track Name\",artist_name as \"Artist Name\",count(1) as \"Hits\" FROM %s.%s group by 1,2 order by 3 desc limit %s;" % (DATABASE, TABLE, TOPX)
-      
-      response = client.start_query_execution(
-          QueryString=query,
-          QueryExecutionContext={
-              'Database': DATABASE
-          },
-          ResultConfiguration={
-                  'OutputLocation': S3_OUTPUT
-          }
-      )
-  
-      query_execution_id = response['QueryExecutionId']
-  
-   # Get Execution Status
-      for i in range(0, RETRY_COUNT):
-  
-          # Get Query Execution
-          query_status = client.get_query_execution(QueryExecutionId=query_execution_id)
-          query_execution_status = query_status['QueryExecution']['Status']['State']
-          
-          if query_execution_status == 'SUCCEEDED':
-              print("STATUS:" + query_execution_status)
-              break
-  
-          if query_execution_status == 'FAILED':
-              raise Exception("STATUS:" + query_execution_status)
-  
-          else:
-              print("STATUS:" + query_execution_status)
-              time.sleep(i)
-      else:
-          client.stop_query_execution(QueryExecutionId=query_execution_id)
-          raise Exception('TIME OVER')
-  
-       # Get Query Results
-      result = client.get_query_results(QueryExecutionId=query_execution_id)
-      print(result['ResultSet']['Rows'])
-      
-      # Function can return results to your application or service
-      #return result['ResultSet']['Rows']
-  ```
-
-
-
-#### Environment Variables
-
-- Scroll down to **Environment variables** section and add below two Environment variables.
-
-  - Key: **DATABASE**, Value: **summitdb**
-
-  - Key: **Table**, Value: **processed_data**
-
+    b. For **IAM role**, select `AWSGlueServiceRole-nyctaxi-optimize-job`
     
-
-  ![image-20191106105934378](../img/environment-variables.png)
-
-  
-
-  > Environment variables for Lambda functions enable you to dynamically pass settings to your function code and libraries, without making changes to your code. Read more about Lambda Environment Variables here - https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html
-
-
-
-#### Execution Role
-
-- Scroll down to **Execution role** Section:
-
-  - Click and open the **View the top5Songs-role-<id> role** in a new tab. It will open this role in IAM console.
-
-  ​		<img src="img/execution-role-1.png" alt="image-20191106110348213" style="zoom:30%;" />	
-
-- In new tab, under IAM console role Permissions, click **Attach policies** and add the following two policies (search in filter box, check and hit Attach policy):
-
-  - AmazonS3FullAccess
-
-  - AmazonAthenaFullAccess
-
-    ![image-20191106111805615](../img/execution-role-2.png)
-
-- Once these policies are attached to the role, close this tab.
-
-
-
-#### Basic Settings
-
-Basic settings allow us to configure memory and timeout parameters for the lambda functions.
-
-- Leave the **Memory (MB)** as defult which is 128 MB
-- Change **Timeout** to 10 seconds.
-
-<img src="img/basic-settings.png" alt="image-20191106113037183" style="zoom:30%;"/>- 
-
-We are now done with most of the settings we needed in order to execute our lambda function.
-
-- Leave all other settings as default.
-- Hit **Save** on the top right hand corner of the console.
-
-
-
-### Configuring Test Event
-
-Our function is now ready to be tested. Lets configure a dummy test event to see execution results of our newly created lambda function.
-
-- Click **Test** on right top hand corner of the lambda console.
-
-- A new window will pop up for us to configure test event.
-
-  - **Create new test event** is selected by default.
-
-  - Event template: **Hello World**
-
-  - Event name: **Test**
-
-  - Leave everything as is and hit create at the bottom right corner of this window.
-
-    ![image-20191106113848726](../img/configure-test-event.png)
-
-- Click **Test** again
-
-  - You should be able to see the output in json format under **Execution Result** section:
-
-    ![image-20191106114238397](../img/results.png)
-
-
-
-Alternatively, if you have aws cli configured on your machine, 
-
-- Make the following minor changes to the code:
-
-  - Comment print statement (not required)
-
-    ```python
-    print(result['ResultSet']['Rows'])
-    to
-    #print(result['ResultSet']['Rows'])
+    c. For **This job runs**, select `An existing script that you provide`
+    
+    d. For **S3 path where the script is stored**, copy-and-paste this S3 URL:
+    ```
+    s3://serverless-data-lake-XXX/scripts/nyctaxi_create_optimized_dataset_job.py
     ```
 
-  - Uncomment return section (required)
+    Replace `serverless-data-lake-XXX` with the actual name of your Amazon S3 bucket.
 
-    ```python
-    #return result['ResultSet']['Rows'] 
-    to
-    return result['ResultSet']['Rows']
+    e. For **Temporary directory**, specify the following S3 URL:
+    ```
+    s3://serverless-data-lake-XXX/data/tmp
     ```
 
-- Use the following command to invoke lambda function using CLI.
+    f. Expand section **Advanced properties**
+        
+    👉 For **Job bookmark**, select `Enable`
 
-  `aws lambda invoke --function-name top5Songs response.json`
+    👉 For **Monitoring options** >> **Job metrics**, select `Enable`
 
-- Function should return 200 response code.
+    g. Expand section **Security configuration, script libraries, and job parameters (optional)**
 
-  ```json
-  {
-      "StatusCode": 200,
-      "ExecutedVersion": "$LATEST"
-  }
-  ```
+    👉 For **Max concurrent** DPUs per Job run , enter 4
+        
+    👉 Find the section named **Job parameters**
+    
+    Under **Key**, enter `--your_bucket_name` (two dashes, then the word **your_bucket_name** )
 
-- See response.json file for the output.
+    Under **Value**, enter your actual Amazon S3 bucket name `serverless-data-lake-XXX`
 
-  ```shell
-  cat response.json
-  ```
+    h. Click **Next**
 
+3. ~~In step **Connections** , click **Next**~~
+4. ~~In step **Review** , click **Save job and edit script**~~
+5. In step **Connections** , click **Save job and edit script**
+6. Review the script. Notice AWS Glue **job setup and teardown code**.
+7. Click **X** on the top right to return to AWS Glue console. You have successfully created an AWS Glue job.
 
+You can run this AWS Glue Job any time. With 4 DPUs allocated, it takes **about 7 - 9 minutes** from a cold start to complete. The job creates and writes an optimized NYC Taxi (Yellow) dataset to the following Amazon S3 path in your own account:
 
-### Verification through Athena
+s3://serverless-data-lake-XXX/data/**prod**/nyctaxi/**yellow_rpt**
 
-Let's verify the results through Athena
+You can download the [Job's script here]()
 
-Login to the Amazon Athena Console.
+> {{%expand "✍️ TRY IT OUT LATER" %}}
+You can have AWS Glue auto-generate an ETL script for you! You can then edit and customize the script to your needs.
 
-- GoTo: https://console.aws.amazon.com/athena/home?region=ap-southeast-1#query
-
-- As Athena uses the AWS Glue catalog for keeping track of data source, any S3 backed table in Glue will be visible to Athena.
-
-- On the left panel, select ‘**summitdb**’ from the dropdown
-
-- Run the following query :
-
-  ```sql
-  select track_name as "Track Name",artist_name as "Artist Name",count(1) as "Hits" FROM summitdb.processed_data group by 1,2 order by 3 desc limit 5;
-  ```
-
-- Compare the results of this query with the results of lambda function. It should be same.
+To accomplish that, in **Step 2.c** of the previous exercise, for **This job runs,** try to select **A proposed script generated by AWS Glue** instead. Follow the steps to create a fully-functional ETL script.
+{{% /expand%}}
 
 
-> GREAT! 
+### 2.4.3. Create an AWS Glue Trigger
 
->You have now created a lambda function from scratch and tested it.
+Finally, we'll create a **Time-based** AWS Glue Trigger to trigger our job through the following steps.
+
+1. Navigate to the AWS Glue console
+2. In the left menu, under **ETL**, click **Triggers**, then click **Add trigger** button
+3. In step **Trigger properties** ’...
+
+    a. For **Name**, enter `nyctaxi-process-raw-dataset`
+
+    b. For **Trigger type**, select `Schedule`
+    
+    c. For **Frequency**, select `Custom`
+    
+    d. For **Cron expression**, enter `15 07 ? * * *` (mind the spaces!)
+    
+    e. Click **Next**
+
+4. In step **Jobs to start** ...
+
+    a. Under **Job**, look for `nyctaxi-optimize-raw-dataset`. Click **Add** next to it.
+    
+    b. Leave **Job bookmark** set to `Enabled`
+    
+    c. Click **Next**
+
+5. In step **Review all steps** , check **Enable trigger on creation**
+6. Click **Finish**
+
+{{% notice note %}} 
+**Congratulations! You have successfully set up your AWS Glue ETL pipeline.**
+The pipeline will run on schedule. You can check your AWS Glue console at the times you scheduled to ensure that your Crawlers and your AWS Glue Job have run.
+{{% /notice %}}
