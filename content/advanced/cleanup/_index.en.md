@@ -1,50 +1,48 @@
 ---
-title: Cleanup
+title: Account Cleanup Instruction
 weight: 320
 pre: "<b>3.2. </b>"
 ---
 
-Failing to do this will result in incuring AWS usage charges.
+Once you are done with the lab, follow the instructions below to clean-up your account.
 
-Make sure you bring down / delete all resources created as part of this lab
+> First, delete manually-created AWS Glue resources.
 
-#### Resources to delete
-* Kinesis Firehose Delivery Stream
-	* GoTo: https://console.aws.amazon.com/firehose/home?region=ap-southeast-1#/
-	* Delete Firehose:  **social-listening-stream**
-* Lambda
-	* GoTo: https://console.aws.amazon.com/lambda/home?region=ap-southeast-1
-	* Navigate to list of functions and select **top5Songs**.
-	* Under **Actions** drop down menu, select **Delete**.
-* Glue Database
-	* GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=databases
-	* Delete Database: **summitdb**
-* Glue Crawler
-	* GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=crawlers
-	* Delete Crawler: **summitcrawler**
-* Glue Dev Endpoint
-	* GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=devEndpoints
-	* Delete endpoint: **devendpoint1**
-* Sagemaker Notebook
-	* You may wish you download the notebook file locally on your laptop before deleting the notebook)
-	* GoTo: https://console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks
-	* Delete Notebook: **aws-glue-notebook1**
-* Delete IAM Role
-	* GoTo: https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/roles
-	* Search for AWSGlueServiceRoleDefault
-	* Delete Role: **AWSGlueServiceRoleDefault**
-	* Search for top5Songs in search box 
-	* Select and delete this role. [top5Songs-role-<id>]
-* Delete S3 bucket
-	* GoTo: https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1
-	* Delete Bucket: **your-datalake-bucket**
-* Delete Cognito Setup :
-	* Goto: https://ap-southeast-1.console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/
-	* Click: **Kinesis-Data-Generator-Cognito-User**
-	* Click: **Actions** > **DeleteStack**
-	* On confirmation screen: Click: **Delete**
-* Close QuickSight account
-	* GoTo: https://us-east-1.quicksight.aws.amazon.com/sn/admin#permissions
-	* Click: **Unsubscribe**
-* Cognito Userpool
-	* GoTo: https://ap-southeast-1.console.aws.amazon.com/cognito/users/?region=ap-southeast-1#/
+1. Navigate to the **AWS Glue** console
+   
+2. Go to **Databases** then select **nyctaxi**. 
+   
+   Click **Action**, then **Delete database**. Confirm deletion.
+3. Go to **Crawlers** then select **nyctaxi-optimized-crawler**. 
+   
+   Click **Action** , then **Delete crawler**. Confirm deletion. 
+   
+   Repeat for **nyctaxi-raw-crawler**.
+
+4. Go to **Jobs**, then select **nyctaxi-create-optimized-dataset**. 
+
+	Click **Action**, then **Delete**. Confirm deletion.
+
+5. Got to **Triggers**, then select **nyctaxi-process-raw-dataset**. 
+   
+   Click **Action**, then **Delete**. Confirm deletion.
+
+6. Go to **Notebooks**, then select **aws-glue-nyctaxi-notebook**. 
+   
+   Click **Action**, then **Stop**. Wait until notebook status changes to **Stopped**. 
+   
+   Click **Action** again, then **Delete**.
+
+> Finally, delete the Serverless-Data-Lake AWS CloudFormation stack to clean-up remaining resources.
+
+7. Navigate to the [**AWS CloudFormation** console](https://ap-southeast-1.console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks?filteringText=serverless-data-lake&filteringStatus=active&viewNested=true&hideStacks=false&stackId=)
+   
+8. Select the `serverless-data-lake` stack
+
+	Click **Delete**, then **Delete stack** to Confirm deletion.
+
+9. Stack status will change to **DELETE_IN_PROGRESS**. The stack should take less than a minute to be deleted.
+
+{{% notice note %}} 
+You're DONE ✅ Cleaning-up your account! 👌
+{{% /notice %}}
