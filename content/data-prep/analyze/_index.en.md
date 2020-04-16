@@ -4,7 +4,7 @@ weight: 230
 pre: "<b>2.3. </b>"
 ---
 
-# 3.3. Explore Optimized Dataset
+# 2.3. Explore Optimized Dataset
 
 ![Data Lake Architecture](/images/modules/analyze.png?width=50pc)
 
@@ -14,7 +14,7 @@ In the previous step, you created a new Dataset that is optimized for Querying a
 Let's find out by performing the following steps.
 {{% /expand%}}
 
-### 3.3.1 Catalog Optimized Data with an AWS Glue Crawler
+### 2.3.1 Catalog Optimized Data with an AWS Glue Crawler
 
 🎯To be able to query the new optimized NYC Taxi trips dataset with Amazon Athena, we need to catalog the dataset using an AWS Glue Crawler.
 
@@ -81,3 +81,31 @@ Later on, in the exercise 'Advanced Exercise: AWS Glue Job Bookmarks', we'll gen
 2. Click on the **yellow_opt** table to show the **Table properties** and **Schema**
 
 3. Scroll down, examine Table **Schema**. Notice the many new fields added. Also notice two new fields **pu_year** and **pu_month** and how they were identified as partitioning columns.
+
+
+### 2.3.2: Query Optimized Data with Amazon Athena
+
+Now that the data has been cataloged, let's test the sample reporting and aggregation queries **on the optimized NYC Taxi trips dataset**.
+
+1. Navigate to **Amazon Athena** console
+2. Ensure database `nyctaxi` is selected.
+3. Click the **Refresh** button, notice how Athena detected the new **`yellow_opt`** Partitioned Table.
+4. Click on the tab **Saved Queries**
+5. In the search field, type `nyctaxi:opt`
+6. Click on the query `AthenaSampleRptOptimizedNamedQuery-` to open in Athena query editor
+7. Click **Run query**
+8. Observe **query run time** and **data scanned.** Compare with the results you saved from section " **2.1.3. Query Raw Data with Amazon Athena"** and notice the improvements:
+
+    ~~(Run time: 48.38 seconds, Data scanned: 164.98 MB)~~
+
+    `(Run time: 15.83 seconds, Data scanned: 20.16 MB)`
+
+    👍 About **3x speed-up** and **80% data scanned** cost reduction compared to Raw Dataset Query.
+
+9.  Repeat **steps 3- 7** for query `AthenaOptimizedAggNamedQuery-`
+
+    ~~(Run time: 41.73 seconds, Data scanned: 164.96 MB)~~
+
+    `(Run time: 3.36 seconds, Data scanned: 62.3 MB)`
+
+    👍 About **12x speed-up** and **25% data scanned** cost reduction compared to Raw Dataset Query.

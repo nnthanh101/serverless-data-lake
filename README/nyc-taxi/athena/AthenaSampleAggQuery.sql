@@ -28,4 +28,4 @@ GROUP  BY Year(yellow2.pu_datetime),
 ORDER  BY Year(yellow2.pu_datetime),
           Month(yellow2.pu_datetime),
           Day(yellow2.pu_datetime),
-          Hour(yellow2.pu_datetime) 
+          Hour(yellow2.pu_datetime)

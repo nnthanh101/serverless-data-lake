@@ -16,7 +16,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 {{% /expand%}}
 
 
-### 2.2.1. Create and run an AWS Glue Crawler
+### 2.1.1. Create and run an AWS Glue Crawler
 
 🎯Let's run an AWS Glue crawler on the raw NYC Taxi trips dataset.
 
@@ -40,7 +40,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
 	d. Click **Next** then **Next** once again.
 
-1. On **IAM Role** step...
+6. On **IAM Role** step...
    
     a. Click `Choose an existing IAM role`
 
@@ -48,9 +48,9 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
     c. Click **Next**
 
-2. On **Schedule** step, click **Next**
+7. On **Schedule** step, click **Next**
 
-3. On **Output** step...
+8. On **Output** step...
 
     a. Click **Add database** → enter `nyctaxi` as the name → click **Create**
 
@@ -58,14 +58,14 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
     c. Click Next
 
-4. On **Review all steps**, click **Finish**.
+9. On **Review all steps**, click **Finish**.
 
-5.  Finally, click on the green **Run it now?** prompt at the top of the Crawlers page.
+10.  Finally, click on the green **Run it now?** prompt at the top of the Crawlers page.
 
 
 > ✍️ Your crawler should immediately start. Upon completion, it adds four tables in the **nyctaxi** database in your AWS Glue data catalog: **yellow** , **paymenttype** , **ratecode** , and **taxizone**.
 
-### 2.2.2. Explore Table Schema and Metadata
+### 2.1.2. Explore Table Schema and Metadata
 
 🎯Now that we have cataloged the raw NYC Taxi trips dataset using a Crawler, let's explore the Crawler's output in the AWS Glue Data Catalog.
 
@@ -86,7 +86,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 4. Scroll down, examine Table **Schema**. Fields have been identified along with their potential Datatypes. You can manually change any Datatype.
 
 
-### 2.2.3. Query Raw Data with Amazon Athena
+### 2.1.3. Query Raw Data with Amazon Athena
 
 > {{%expand "Proposing Amazon Athena along with Amazon QuickSight." %}}
 
@@ -108,11 +108,14 @@ and analytics queries that Unicorn-Taxi's business end users may want to run on 
 4. In the search field, type `nyctaxi:raw`
 5. Click on the `AthenaSampleRptNamedQuery-` query to open in Athena Query Editor.
 Note: After opening the query, [review the comment before the SQL statement](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/athena/AthenaSampleRptNamedQuery.sql).
-1. Click **Run query**
+6. Click **Run query**
 
-2. Note: Query **Run time** and **Data scanned**. Copy and paste it into an open text file for later comparison.
-`(Run time: 48.74 seconds, Data scanned: 164.98 MB)`
+7. Note: Query **Run time** and **Data scanned**. Copy and paste it into an open text file for later comparison.
 
-1. Repeat **steps 3- 7** for query **[AthenaSampleAggQuery-](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/athena/AthenaSampleAggQuery.sql)**
+    `(Run time: 48.38 seconds, Data scanned: 164.98 MB)`
+
+8. Repeat **steps 3- 7** for query **[`AthenaSampleAggQuery-`](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/athena/AthenaSampleAggQuery.sql)**
+
+    `(Run time: 41.73 seconds, Data scanned: 164.96 MB)`
 
 ✍️ The *Query Run time* and *Data scanned* values you obtained are a result of running the queries directly on the **Raw Dataset**. Later on, we'll create an **Optimized Dataset** and query it again. And then, we'll be able to compare Query Run times and Data scanned on Raw Dataset versus Optimized Dataset.

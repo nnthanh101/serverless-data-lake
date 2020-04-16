@@ -1,7 +1,7 @@
 ---
-title: Explore Optimized Dataset
-weight: 250
-pre: "<b>2.5. </b>"
+title: Lambda
+weight: 260
+pre: "<b>2.6. </b>"
 ---
 
-Explore Optimized Dataset ...
+![Data Lake Architecture](/images/modules/lambda.png?width=50pc)
