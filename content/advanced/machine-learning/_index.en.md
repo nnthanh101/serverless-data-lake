@@ -4,6 +4,9 @@ weight: 310
 pre: "<b>3.1. </b>"
 ---
 
+{{% notice warning %}}
+FIXME: `matplotlib` & `XGBoostSageMakerEstimator` is not supported in `ap-southeast-1`!
+{{% /notice %}}
 
 > {{%expand "🎯🎯🎯 Solve a Machine Learning Problem: Perform Tip Amount Prediction for a particular Ride" %}}
 So far, we have curated and optimized the NYC Taxi Dataset that can be utilized for analytics using Business Intelligence tools or by Data Science team to solve key business problems as predictions. 
