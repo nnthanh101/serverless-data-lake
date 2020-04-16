@@ -56,7 +56,7 @@ Proceed to create a SageMaker Notebook instance. Follow these steps.
 2. Navigate to the [**AWS Glue** console](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#etl:tab=notebooks).  In the left menu, under **ETL** → **Dev endpoints**, click **Notebooks**
 4. Select **aws-glue-nyctaxi-notebook**, then click **Open notebook** and then **OK**. A new browser tab will open showing **Jupyter** interface
 5. In **Jupyter**, in the upper right corner, click the **Upload** button
-6. Browse to and select **nyctaxi_raw_dataset_etl.ipynb** , then in Jupyter, click **Upload** again. After upload, the Notebook should appear in Jupyter.
+6. Browse to and select `nyctaxi_raw_dataset_etl.ipynb`, then in Jupyter, click **Upload** again. After upload, the Notebook should appear in Jupyter.
 7. Click on **nyctaxi_raw_dataset_etl.ipynb** to open Notebook. Spend a few moments to have an overview of the documented ETL Code and what it does.
 
 > 🎯Next, We'll edit the **ETL code** in the Notebook and then run it on the Raw NYC Taxi Trips Dataset.

@@ -193,14 +193,13 @@ Notice that there is a **Zero records returned.** for March.
     
     d. Click Create
 
-8. Next, on the top right, click the **Test** button. Wait until you receive **Execution result:** **succeeded**. The March 2017 file has been ingested into your Amazon S3 bucket!
+8. Next, on the top right, click the **Test** button. Wait until you receive **Execution result: succeeded**. The March 2017 file has been ingested into your Amazon S3 bucket!
 
 > 2.4.4.3. Finally, we'll manually re-run the Production ETL Job and verify that it processed the newly-ingested file for **March 2017**.
 
 9. Navigate to the **AWS Glue** console. Click on **Jobs**
 10. Manually run the **nyctaxi-create-optimized-dataset** job again. Wait for it to complete.
-11. Navigate to **Crawlers**, and re-run the optimized dataset crawler **nyctaxi-optimized-**
-    **crawler**.
+11. Navigate to **Crawlers**, and re-run the optimized dataset crawler **nyctaxi-optimized-crawler**.
 12. Repeat **step #3**. Does it show a count for March 2017 records?
 
 Optionally, you can also navigate to Amazon S3 console and browse the following locations and verify that the Glue Job did not re-process January and February data and append duplicate files. Check the number of files in the following S3 locations and ensure there are 31 objects for January and 28 objects for February:
