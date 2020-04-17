@@ -20,7 +20,7 @@ Let's find out by performing the following steps.
 
 1. Navigate to the [AWS Glue console](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=crawlers)
 2. In the left menu, click **Crawlers** → **Add crawler**
-3. On **Crawler info** step, enter crawler name **nyctaxi-optimized-crawler** and write a description. Click **Next**.
+3. On **Crawler info** step, enter crawler name `nyctaxi-optimized-crawler` and write a description. Click **Next**.
 4. On **Data store** step...
    
     a. Choose a data store: `S3` then choose `Specified path in my account`
