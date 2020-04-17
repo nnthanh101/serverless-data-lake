@@ -22,7 +22,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
  1. Navigate to the **AWS Glue** console
  2. In the left menu, click **Crawlers** → **Add crawler**
- 3. On **Crawler info** step, enter crawler name **_nyctaxi-raw-crawler_** and write a description.
+ 3. On **Crawler info** step, enter crawler name `nyctaxi-raw-crawler` and write a description.
  4. Click **Next**
    
  5. On **Data stores** step...
@@ -98,6 +98,10 @@ and quickly get business insights from our data.
 
 Because Amazon Athena will act as our Data Lake's Querying Service, We decide to use Athena to explore the raw NYC Taxi Trips Dataset. The goal here is to see how Amazon Athena performs on the Raw Dataset and establish a performance baseline.
 {{% /expand%}}
+
+{{% notice tip %}}
+Specify the **Athena** >> **Settings** >> **Query result location**: `serverless-data-lake-XXX/Athena/` and refresh Database if there is any error occur!
+{{% /notice %}}
 
 Let's run two SQL queries in Amazon Athena: a sample reporting query ( **_sample_report_qry_** ) and a sample aggregation query ( **_sample_agg_qry_** ). Both queries represent typical reporting
 and analytics queries that Unicorn-Taxi's business end users may want to run on the dataset.
