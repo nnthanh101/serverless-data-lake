@@ -6,7 +6,7 @@ weight: 1
 
 # SERVERLESS DATA LAKE ON AWS
 
-You are a Data Analytics Team at **Unicorn-Taxi** Startup.
+You are a Data Analytics Team at **Unicorn-Taxi** Company.
 
 ## Get Ready!
 
