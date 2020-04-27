@@ -33,10 +33,10 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
 	c. In Include path, copy-and-paste an NYC Taxi dataset S3 URL:
 	```
-    s3://serverless-data-lake-XXX/data/raw/nyctaxi/
+    ~~s3://serverless-data-lake-XXX~~/data/raw/nyctaxi/
     ```
 
-    Note: replace `serverless-data-lake-XXX` with your actual bucket's name.
+    Note: replace ~~`serverless-data-lake-XXX`~~ with your actual bucket's name.
 
 	d. Click Next then Next once again.
 
@@ -54,7 +54,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
     a. Click **Add database** → enter `nyctaxi` as the name → click **Create**
 
-    b. Expand Configuration options (optional) → select `Add new columns **only**`
+    b. Expand Configuration options (optional) → select `Add new columns only`
 
     c. Click Next
 

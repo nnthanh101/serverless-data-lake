@@ -28,10 +28,10 @@ Let's find out by performing the following steps.
     b. In Include path, copy-and-paste an NYC Taxi dataset S3 URL:
 
 	```
-    s3://serverless-data-lake-XXX/data/staging/nyctaxi/yellow_opt/
+    ~~s3://serverless-data-lake-XXX~~/data/staging/nyctaxi/yellow_opt/
     ```
 
-    Note: replace `serverless-data-lake-XXX` with your actual bucket's name.
+    Note: replace ~~`serverless-data-lake-XXX`~~ with your actual bucket's name.
 	
     c. Click **Next**
     
@@ -40,10 +40,10 @@ Let's find out by performing the following steps.
     e. Repeat steps **(a.)** to **(c.)** for the following NYC Taxi Dataset S3 path:
 
 	```
-    s3://serverless-data-lake-XXX/data/prod/nyctaxi/yellow_rpt/
+    ~~s3://serverless-data-lake-XXX~~/data/prod/nyctaxi/yellow_rpt/
     ```
 
-    Note: replace `serverless-data-lake-XXX` with your actual bucket's name.
+    Note: replace ~~`serverless-data-lake-XXX`~~ with your actual bucket's name.
 
     f. **Add another data store**, select **No**. Click **Next**, again.
 

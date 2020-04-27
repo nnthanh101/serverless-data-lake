@@ -62,13 +62,13 @@ Proceed to create a SageMaker Notebook instance. Follow these steps.
 > 🎯Next, We'll edit the **ETL code** in the Notebook and then run it on the Raw NYC Taxi Trips Dataset.
 
 1. In **Jupyter**, ensure the `nyctaxi_raw_dataset_etl.ipynb` notebook is open
-2. In the **first PySpark code cell**, look for the variable ~~**your-datalake-bucket**~~. Set the value of that string variable to **your own Amazon S3 bucket’s name** `serverless-data-lake-XXX`
+2. In the **first PySpark code cell**, look for the variable ~~**your-datalake-bucket**~~. Set the value of that string variable to **your own Amazon S3 bucket’s name** ~~`serverless-data-lake-XXX`~~
 3. Click the **Save and Checkpoint** button to save the change you made to your notebook.
 4. Click on the **Cells** menu → **Run All**
 5. This will run *ETL code* in the Notebook. The code finally creates a new dataset under the Amazon S3 prefix in your own account:
     ```
-    s3://serverless-data-lake-XXX/data/staging/nyctaxi/yellow_opt/
+    ~~s3://serverless-data-lake-XXX~~/data/staging/nyctaxi/yellow_opt/
     ```
-    Note: replace `serverless-data-lake-XXX` with your actual bucket's name.
+    Note: replace ~~`serverless-data-lake-XXX`~~ with your actual bucket's name.
 
 > ✍️The Notebook should take about 8 minutes to complete.

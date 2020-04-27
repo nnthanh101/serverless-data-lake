@@ -54,14 +54,14 @@ The next step in setting up our AWS Glue ETL pipeline is to create an AWS Glue J
     
     d. For **S3 path where the script is stored**, copy-and-paste this S3 URL:
     ```
-    s3://serverless-data-lake-XXX/scripts/nyctaxi_create_optimized_dataset_job.py
+    ~~s3://serverless-data-lake-XXX~~/scripts/nyctaxi_create_optimized_dataset_job.py
     ```
 
-    Replace `serverless-data-lake-XXX` with the actual name of your Amazon S3 bucket.
+    Replace ~~`serverless-data-lake-XXX`~~ with the actual name of your Amazon S3 bucket.
 
     e. For **Temporary directory**, specify the following S3 URL:
     ```
-    s3://serverless-data-lake-XXX/data/tmp
+    ~~s3://serverless-data-lake-XXX~~/data/tmp
     ```
 
     f. Expand section **Advanced properties**
@@ -78,7 +78,7 @@ The next step in setting up our AWS Glue ETL pipeline is to create an AWS Glue J
     
     Under **Key**, enter `--your_bucket_name` (two dashes, then the word **your_bucket_name** )
 
-    Under **Value**, enter your actual Amazon S3 bucket name `serverless-data-lake-XXX`
+    Under **Value**, enter your actual Amazon S3 bucket name ~~`serverless-data-lake-XXX`~~
 
     h. Click **Next**
 
@@ -90,7 +90,7 @@ The next step in setting up our AWS Glue ETL pipeline is to create an AWS Glue J
 
 You can run this AWS Glue Job any time. With 4 DPUs allocated, it takes **about 7 - 9 minutes** from a cold start to complete. The job creates and writes an optimized NYC Taxi (Yellow) dataset to the following Amazon S3 path in your own account:
 
-s3://serverless-data-lake-XXX/data/**prod**/nyctaxi/**yellow_rpt**
+~~s3://serverless-data-lake-XXX~~/data/**prod**/nyctaxi/**yellow_rpt**
 
 You can download the [Job's script here](https://github.com/nnthanh101/serverless-data-lake/blob/nyc-taxi/README/nyc-taxi/scripts/nyctaxi_create_optimized_dataset_job.py)
 
