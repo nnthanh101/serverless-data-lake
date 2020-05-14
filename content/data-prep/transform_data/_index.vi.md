@@ -67,7 +67,7 @@ Proceed to create a SageMaker Notebook instance. Follow these steps.
 4. Click on the **Cells** menu → **Run All**
 5. This will run *ETL code* in the Notebook. The code finally creates a new dataset under the Amazon S3 prefix in your own account:
     ```
-    ~~s3://serverless-data-lake-XXX~~/data/staging/nyctaxi/yellow_opt/
+    s3://serverless-data-lake-XXX/data/staging/nyctaxi/yellow_opt/
     ```
     Note: replace ~~`serverless-data-lake-XXX`~~ with your actual bucket's name.
 

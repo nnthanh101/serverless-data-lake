@@ -33,7 +33,7 @@ A Crawler scans your data, classifying its format (.csv, .tsv, ...) and inferrin
 
 	c. In Include path, copy-and-paste an NYC Taxi dataset S3 URL:
 	```
-    ~~s3://serverless-data-lake-XXX~~/data/raw/nyctaxi/
+    s3://serverless-data-lake-XXX/data/raw/nyctaxi/
     ```
 
     Note: replace ~~`serverless-data-lake-XXX`~~ with your actual bucket's name.

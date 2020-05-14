@@ -54,14 +54,14 @@ The next step in setting up our AWS Glue ETL pipeline is to create an AWS Glue J
     
     d. For **S3 path where the script is stored**, copy-and-paste this S3 URL:
     ```
-    ~~s3://serverless-data-lake-XXX~~/scripts/nyctaxi_create_optimized_dataset_job.py
+    s3://serverless-data-lake-XXX/scripts/nyctaxi_create_optimized_dataset_job.py
     ```
 
     Replace ~~`serverless-data-lake-XXX`~~ with the actual name of your Amazon S3 bucket.
 
     e. For **Temporary directory**, specify the following S3 URL:
     ```
-    ~~s3://serverless-data-lake-XXX~~/data/tmp
+    s3://serverless-data-lake-XXX/data/tmp
     ```
 
     f. Expand section **Advanced properties**
